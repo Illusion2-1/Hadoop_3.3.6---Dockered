@@ -52,17 +52,17 @@ chmod 644 "/home/$HADOOP_USER/.ssh/known_hosts"
 chown -R ${HADOOP_USER}:${HADOOP_USER} "/home/${HADOOP_USER}/.ssh"
 
 
-service ssh stop
-service ssh start
+PERSISTENT_NAMENODE_DIR="/opt/hadoop_data/hdfs/namenode"
 
+if [ ! -d "$PERSISTENT_NAMENODE_DIR/current" ] || [ ! "$(ls -A $PERSISTENT_NAMENODE_DIR/current 2>/dev/null)" ]; then
+  echo "Formatting NameNode in $PERSISTENT_NAMENODE_DIR..."
+  mkdir -p "$PERSISTENT_NAMENODE_DIR"
+  chown -R ${HADOOP_USER}:${HADOOP_USER} "$(dirname "$PERSISTENT_NAMENODE_DIR")"
 
-
-if [ ! -d "$HADOOP_HOME/data/hdfs/namenode/current" ] || [ ! "$(ls -A $HADOOP_HOME/data/hdfs/namenode/current)" ]; then
-  echo "Formatting NameNode..."
   $HADOOP_HOME/bin/hdfs namenode -format -force -nonInteractive
   echo "NameNode formatted."
 else
-  echo "NameNode already formatted or data directory not empty."
+  echo "NameNode already formatted in $PERSISTENT_NAMENODE_DIR or data directory not empty."
 fi
 
 echo "Starting Hadoop daemons..."

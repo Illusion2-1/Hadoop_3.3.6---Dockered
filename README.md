@@ -17,13 +17,17 @@ To build the Docker image, run the following command in the root directory of th
 sudo docker build --network=host -t hadoop:3.3.6 . # use host network for building to avoid DNS issues
 ```
 To run the Docker container, use the following command:
-
 ```bash
 sudo docker run -d --name hadoop-master \
+-p 9000:9000 \
 -p 9870:9870 \
+-p 9868:9868 \
 -p 8088:8088 \
+-p 9864:9864 \
+-p 10020:10020 \
 -p 19888:19888 \
 --hostname localhost \
+-v ./data:/opt/hadoop_data \
 hadoop:3.3.6
 ```
 To access the Hadoop web UI, open your web browser and go to:

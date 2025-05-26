@@ -21,10 +21,15 @@ sudo docker build --network=host -t hadoop:3.3.6 。 # 使用主机网络进行�
 
 ```bash
 sudo docker run -d --name hadoop-master \
+-p 9000:9000 \
 -p 9870:9870 \
+-p 9868:9868 \
 -p 8088:8088 \
+-p 9864:9864 \
+-p 10020:10020 \
 -p 19888:19888 \
 --hostname localhost \
+-v ./data:/opt/hadoop_data \
 hadoop:3.3.6
 ```
 要访问 Hadoop 网页界面，请打开网页浏览器并访问：
