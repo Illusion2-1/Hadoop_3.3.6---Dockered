@@ -15,7 +15,7 @@
 要构建 Docker 镜像，请在仓库的根目录中运行以下命令：
 
 ```bash
-sudo docker build --network=host -t hadoop:3.3.6 。 # 使用主机网络进行构建以避免 DNS 问题
+sudo docker build --network=host -t hadoop:3.3.6 . # 使用主机网络进行构建以避免 DNS 问题
 ```
 要运行 Docker 容器，请使用以下命令：
 
